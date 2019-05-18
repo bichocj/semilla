@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/bichocj/semilla#readme",
   "engines": {
-    "node": "8.11.1"
+    "node": "11.6.0"
   },
   "dependencies": {
     "apollo-server": "^2.5.0",
@@ -30,5 +30,8 @@
     "bunyan": "^1.8.12",
     "express": "^4.17.0",
     "graphql": "^14.3.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0"
   }
 }

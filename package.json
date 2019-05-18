@@ -1,0 +1,30 @@
+{
+  "name": "semilla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup-client": "cd frontend && yarn install && yarn run generate ",
+    "start": "yarn run setup-client && node app.js",
+    "dev": "nodemon app.js --watch server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bichocj/semilla.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bichocj/semilla/issues"
+  },
+  "homepage": "https://github.com/bichocj/semilla#readme",
+  "dependencies": {
+    "apollo-server": "^2.5.0",
+    "apollo-server-express": "^2.5.0",
+    "bunyan": "^1.8.12",
+    "express": "^4.17.0",
+    "graphql": "^14.3.0"
+  }
+}

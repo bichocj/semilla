@@ -20,6 +20,9 @@
     "url": "https://github.com/bichocj/semilla/issues"
   },
   "homepage": "https://github.com/bichocj/semilla#readme",
+  "engines": {
+    "node": "8.11.1"
+  },
   "dependencies": {
     "apollo-server": "^2.5.0",
     "apollo-server-express": "^2.5.0",

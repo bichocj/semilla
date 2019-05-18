@@ -4,7 +4,7 @@
     <div class="pt-0 text-center">Historial del día</div>
     <b-table responsive striped hover :items="items" :fields="fields">
         <template slot="actions" slot-scope="data">                            
-            <b-button variant="danger">Eliminar</b-button>
+            <b-button variant="danger">Borrar</b-button>
         </template>
     </b-table>
     <b-form-group
@@ -29,13 +29,15 @@ export default {
         label: "#"
       },
       {
-        key: "weigth",
+        key: "weigth",        
         sortable: true,
-        label: "peso"
+        label: "peso",
+        class: "text-center"
       },
       {
         key: "actions",
-        label: ""
+        label: "",
+        class: "text-right"
       }
     ],
   items: [

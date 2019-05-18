@@ -17,7 +17,7 @@ app.get('/_nuxt/:file', function (req, res) {
   res.sendFile(path.join(__dirname + '/backend/client/_nuxt/' + file));
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log(`🚀  Server ready!`);
 });
 

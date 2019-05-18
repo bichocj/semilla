@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "setup-client": "cd frontend && yarn install && yarn run generate ",
-    "start": "yarn run setup-client && node app.js",
+    "start": "node app.js",
+    "build": "yarn run setup-client",
     "dev": "nodemon app.js --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

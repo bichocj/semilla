@@ -17,6 +17,8 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <div class="mx-3 mt-3">
     <nuxt />
+    </div>
   </div>
 </template>

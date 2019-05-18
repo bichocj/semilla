@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import Counting from '~/components/Counting'
+import Counting from './components/Counting'
 export default {
   name: "GalponPage",
   components: {

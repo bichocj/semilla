@@ -1,23 +1,41 @@
 <template>
   <div>
-    <section class="mt-5">
-      <section v-if="sheds">              
-        <div v-for="shed in sheds" :key="shed.name" class="d-flex my-2">
-          <div class="mx-3 my-auto">
-            <h1>{{ shed.name }}</h1>
-          </div>          
-          <b-button-group size="lg" class="flex-grow-1">
-            <b-button
-              v-for="section in shed.sections"
-              :key="section.id"
-              :to="`/conteo/galpon/${shed.name}-${section.name}`">
-              {{ section.name }}
-            </b-button>          
-          </b-button-group>
-        </div>    
-        <div class="text-center fixed-bottom pb-4">
-          <b-link href="#foo">-- Ver Graficos --</b-link>
-        </div>
+    <section class="mt-3">
+      <p>Tareas de:</p>
+      <section v-if="sheds">
+        <b-tabs content-class="mt-3">
+              <b-tab title="Recojo" active>
+                  <p class="text-center">
+                    Aqui puedes ingresar datos de cada galpon.
+                    <br>
+                    Escoge el <b>Número de Galpon</b> y la <b>Sección</b>
+                  </p>
+                  <div v-for="shed in sheds" :key="shed.name" class="d-flex my-2">
+                    <div class="mx-3 my-auto">
+                      <h1>{{ shed.name }}</h1>
+                    </div>          
+                    <b-button-group size="lg" class="flex-grow-1">
+                      <b-button
+                        v-for="section in shed.sections"
+                        :key="section.id"
+                        :to="`/recojo/galpon/${shed.name}-${section.name}`">
+                        {{ section.name }}
+                      </b-button>          
+                    </b-button-group>
+                  </div>                      
+              </b-tab>
+              <div class="text-center fixed-bottom pb-4">
+                <b-link href="#foo">-- Ver Graficos --</b-link>
+              </div>
+              <b-tab title="Selección">
+                  <p class="text-center">
+                    Aqui puedes ingresar datos de selección de huevos.
+                  </p>
+                  <b-button variant="secondary" :block="true" to="/seleccion/huevos">
+                    Ingresar datos
+                  </b-button>
+              </b-tab>
+        </b-tabs>                                  
       </section>
       <h2 v-else>
         Loading...

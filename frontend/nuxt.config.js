@@ -65,6 +65,7 @@ module.exports = {
     */
     extend(config, ctx) {
     },
+    /*
     postcss: [
       require('postcss-preset-env')({
         stage: 0,
@@ -85,6 +86,7 @@ module.exports = {
         }
       })
     ]
+    */
   },
 
   generate: {

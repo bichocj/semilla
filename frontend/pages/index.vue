@@ -27,40 +27,57 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import gql from "graphql-tag";
 
-const bookS_PER_PAGE = 2
+const bookS_PER_PAGE = 2;
 const books = gql`
   query getBooks {
-    books{
+    books {
       title
       author
     }
   }
-`
+`;
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   data: () => ({
-    loading: 0,    
+    loading: 0,
     sheds: [
-      { id: 1, name:1, sections: [ { id: 1, name: 'A'}  ] },
-      { id: 2, name:2, sections: [ { id: 2, name: 'A'}, { id: 3, name: 'B'}, { id: 4, name: 'C'}  ] },
-      { id: 3, name:3, sections: [ { id: 5, name: 'A'}, { id: 6, name: 'B'}, { id: 7, name: 'C'}, { id: 8, name: 'D'}  ] },
+      { id: 1, name: 1, sections: [{ id: 1, name: "A" }] },
+      {
+        id: 2,
+        name: 2,
+        sections: [
+          { id: 2, name: "A" },
+          { id: 3, name: "B" },
+          { id: 4, name: "C" }
+        ]
+      },
+      {
+        id: 3,
+        name: 3,
+        sections: [
+          { id: 5, name: "A" },
+          { id: 6, name: "B" },
+          { id: 7, name: "C" },
+          { id: 8, name: "D" }
+        ]
+      }
     ]
   }),
   apollo: {
-    $loadingKey: 'loading',
+    $loadingKey: "loading",
     books: {
-      query: books,      
-    },    
-  },
-}
+      query: books
+    }
+  }
+};
 </script>
 <style scoped>
-  .btn-group > .btn:not(:first-child){
-    border-left: 2px solid;
-  }
-  .btn-group > .btn:not(:last-child){  
-    border-right: 2px solid;
-  }
+.btn-group > .btn:not(:first-child) {
+  border-left: 2px solid;
+}
+.btn-group > .btn:not(:last-child) {
+  border-right: 2px solid;
+}
 </style>

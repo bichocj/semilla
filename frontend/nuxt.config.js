@@ -22,12 +22,13 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
-
+  loading: {color: '#f28b8b', height: '5px'},
+  loadingIndicator: {name: 'circle'},
   /*
   ** Global CSS
   */
   css: [
+    '@/assets/scss/app.scss'
   ],
 
   /*
@@ -40,8 +41,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
+    // Doc: https://bootstrap-vue.js.org/docs/    
+    ['bootstrap-vue/nuxt', {css: false}],
     '@nuxtjs/apollo'
   ],
 
@@ -63,7 +64,27 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-    }
+    },
+    postcss: [
+      require('postcss-preset-env')({
+        stage: 0,
+        preserve: false,
+        importFrom: [
+          {
+            // customProperties: require('./src/variables/variables')({ theme: 'green' }),
+            // customMedia: require('./src/variables/custom-media')
+          }
+        ],
+        features: {
+          'color-mod-function': {
+            unresolved: 'ignore'
+          },
+          'focus-within-pseudo-class': {
+            preserve: true
+          }
+        }
+      })
+    ]
   },
 
   generate: {

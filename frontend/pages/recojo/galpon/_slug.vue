@@ -17,7 +17,8 @@
     </div>
 
     <section class="mt-3">            
-        <Strong>Conteo de</Strong>
+        <div class="text-center">Ingresar nuevo recojo en</div>
+        <DateTimePicker />
         <b-tabs content-class="mt-3">
             <b-tab title="Huevos" active>
                 <Eggs
@@ -36,11 +37,13 @@
   </div>
 </template>
 <script>
+import DateTimePicker from './components/DateTimePicker'
 import Eggs from './components/Eggs'
 import Chicken from './components/Chicken'
 export default {
   name: "GalponPage",
-  components: {    
+  components: {
+    DateTimePicker,    
     Eggs,
     Chicken
   },

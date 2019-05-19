@@ -37,32 +37,14 @@
       element="time-picker-custom-input"
       class="w-100"
       type="time-a"  
-    />                            
-    <b-form-group
-        id="quantity"
-        label-cols-sm="4"
-        label-cols-lg="3"                        
-        label="Cantidad"
-        label-for="input-horizontal"
-        >
-        <b-form-input id="quantity" v-model="quantity" type="number" required></b-form-input>
-    </b-form-group>   
-    <b-button variant="primary" :block="true">Guardar</b-button>
-    
-    <div class="pt-5 text-center">Historial del día</div>
-    <b-table responsive striped hover :items="items" :fields="fields">
-        <template slot="actions" slot-scope="data">                            
-            <b-button variant="danger">Eliminar</b-button>
-        </template>
-    </b-table>
+    />   
   </div>
 </template>
 <script>
 import VuePersianDatetimePicker from "vue-persian-datetime-picker";
 import utils from '~/utils/utils';
 
-export default {
-  name: "Counting",
+export default {  
   components: {
     datePicker: VuePersianDatetimePicker
   },
@@ -73,8 +55,8 @@ export default {
     quantity: null,
   }),
   props: [
-    'items',
-    'fields'
+    'onChangeDate',
+    'onChangeTime'
   ],
   mounted() {
     this.dateAt = this.getToday();

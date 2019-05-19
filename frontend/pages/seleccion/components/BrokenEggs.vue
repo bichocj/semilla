@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import BottomInput from './hooks/BottomInput'
+import BottomInput from '~/components/BottomInput'
 export default {
   data: () => ({
     weigth: null,

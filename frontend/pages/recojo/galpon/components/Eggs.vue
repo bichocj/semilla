@@ -31,7 +31,7 @@ export default {
       {
         key: "quantity",
         sortable: true,
-        label: "Peso"
+        label: "Cantidad"
       },
       {
         key: "actions",

@@ -2,20 +2,30 @@
   <div>
     <p class="text-center">Peso de paquete de huevo pesado</p>    
     <div class="pt-0 text-center">Historial del día</div>
-    <b-table responsive striped hover :items="items" :fields="fields">
+    <b-table responsive striped hover :items="items" :fields="fields" class="mb-7"> 
         <template slot="actions" slot-scope="data">                            
             <b-button variant="danger">Borrar</b-button>
         </template>
     </b-table>
-    <b-form-group
-      id="weigth"
-      label-cols-sm="4"
-      label-cols-lg="3"                        
-      label="Peso"
-      label-for="weigth">
-      <b-form-input id="weigth" ref="weigth" v-model="weigth" required type="number"></b-form-input>
-    </b-form-group>
-    <b-button variant="primary" :block="true" @click="addItem()" >Agregar</b-button>
+
+    <div class="budget bg-white border-top ">
+      <div class="pt-2 pb-1 pl-4">Agregar Peso</div>
+      <div class="d-flex justify-content-between px-1 pb-2">
+        <div class="col d-flex flex-column">
+          <b-form-input id="weigth" ref="weigth" v-model="weigth" required type="number"></b-form-input>
+        </div>
+        <div class="col">
+          <b-button
+            :block="true"            
+            class="rounded"            
+            variant="primary"            
+            @click="addItem">
+            Ok
+          </b-button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
@@ -55,8 +65,27 @@ export default {
         })
         this.weigth = null
         this.$refs.weigth.$el.focus()
+        window.scrollTo(0,document.body.scrollHeight);
       }
     }
   }
 }
 </script>
+<style>
+.budget {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+.service-type-title {
+  height: 38px;
+}
+.opacity {
+  opacity: 0.3;
+}
+.mb-7 {
+  margin-bottom: 200px;
+}
+</style>
+

@@ -20,48 +20,34 @@
         <Strong>Conteo de</Strong>
         <b-tabs content-class="mt-3">
             <b-tab title="Huevos" active>
-                <Counting :items='items' :fields='fields' />
+                <Eggs
+                  label="agregar recojo"
+                  onSubmit=""
+                />
             </b-tab>
             <b-tab title="Gallinas muertas">
-                <Counting :items='items' :fields='fields' />
+                <Chicken
+                  label="agregar gallinas"
+                  onSubmit=""
+                />
             </b-tab>
         </b-tabs>                                
     </section>
   </div>
 </template>
 <script>
-import Counting from './components/Counting'
+import Eggs from './components/Eggs'
+import Chicken from './components/Chicken'
 export default {
   name: "GalponPage",
-  components: {
-    Counting
+  components: {    
+    Eggs,
+    Chicken
   },
   data: () => ({
     loading: 0,
     shed: "",
-    section: "",
-    fields: [
-      {
-        key: "time",
-        sortable: true,
-        label: "Hora"
-      },
-      {
-        key: "quantity",
-        sortable: true,
-        label: "Cantidad"
-      },
-      {
-        key: "actions",
-        label: ""
-      }
-    ],
-    items: [
-      { time: "6:00", quantity: 210 },
-      { time: "8:30", quantity: 180 },
-      { time: "9:00", quantity: 230 },
-      { time: "12:00", quantity: 120 }
-    ]
+    section: "",    
   }),
   mounted() {
     const val = this.$route.params.slug.split("-");

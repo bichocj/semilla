@@ -2,23 +2,19 @@
   <div>
     <p>Peso de huevo sobrante</p>    
     <div class="pt-5 text-center">Historial del día</div>
-    <b-table responsive striped hover :items="items" :fields="fields">
+    <b-table responsive hover :items="items" :fields="fields" class="mb-7"> 
         <template slot="actions" slot-scope="data">                            
             <b-button variant="danger">Eliminar</b-button>
         </template>
     </b-table>
-    <b-form-group
-      id="weigth"
-      label-cols-sm="4"
-      label-cols-lg="3"                        
-      label="Peso"
-      label-for="weigth">
-      <b-form-input id="weigth" v-model="weigth" required type="number"></b-form-input>
-    </b-form-group>
-    <b-button variant="primary" :block="true" >Agregar</b-button>
+    <BottomInput
+      label="Agregar peso restante"
+      :onSubmit="(val) => addItem(val)"
+      />
   </div>
 </template>
 <script>
+import BottomInput from './hooks/BottomInput'
 export default {
   data: () => ({
     weigth: null,
@@ -43,6 +39,18 @@ export default {
       { number: "2", weigth: 180 },
       { number: "3", weigth: 230 },
     ]
-  })
+  }),
+  components: {
+    BottomInput,
+  },
+  methods: {
+    addItem(val) {      
+      this.items.push({
+        number: this.items.length,
+        weigth: val
+      })
+      window.scrollTo(0,document.body.scrollHeight);
+    }
+  }
 }
 </script>

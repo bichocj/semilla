@@ -12,7 +12,13 @@
       <div class="pt-2 pb-1 pl-4">Agregar Peso</div>
       <div class="d-flex justify-content-between px-1 pb-2">
         <div class="col d-flex flex-column">
-          <b-form-input id="weigth" ref="weigth" v-model="weigth" required type="number"></b-form-input>
+          <b-form-input 
+            id="weigth"
+            ref="weigth"
+            requiredtype="number"
+            v-model="weigth" 
+            v-on:keyup.enter="addItem"
+            ></b-form-input>
         </div>
         <div class="col">
           <b-button

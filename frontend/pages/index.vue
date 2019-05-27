@@ -24,9 +24,6 @@
                     </b-button-group>
                   </div>                      
               </b-tab>
-              <div class="text-center fixed-bottom pb-4">
-                <b-link href="#foo">-- Ver Graficos --</b-link>
-              </div>
               <b-tab title="Selección">
                   <p class="text-center">
                     Aqui puedes ingresar datos de selección de huevos.
@@ -35,6 +32,9 @@
                     Ingresar datos
                   </b-button>
               </b-tab>
+              <div class="text-center fixed-bottom pb-4">
+                <b-link href="/graficos">-- Ver Graficos --</b-link>
+              </div>
         </b-tabs>                                  
       </section>
       <h2 v-else>

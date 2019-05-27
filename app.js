@@ -3,7 +3,7 @@ const express = require('express');
 const server = require('./backend/server');
 const app = express();
 var path = require('path');
-
+const mongoose = require('./backend/database');
 
 server.applyMiddleware({ app });
 

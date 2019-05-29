@@ -22,7 +22,6 @@ async function getCampaings() {
     }
   }) */ 
   .exec();
-  console.log(campings[0].sections)
   return campings
 }
 
@@ -30,7 +29,6 @@ async function getSection(_id) {
   const section = await Section.findOne({_id})  
   .populate('collects')    
   .exec();  
-  console.log('section>>>>>>>>>>', section)
   return section
 }
 
@@ -68,8 +66,7 @@ const resolvers = {
     campaings: async() => {
       return getCampaings()
     },
-    section: async(parent, data, context) => {
-      console.log('sejction', data)
+    section: async(parent, data, context) => {      
       const { id } = data
       return getSection(id)
     }

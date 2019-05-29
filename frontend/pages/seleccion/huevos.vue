@@ -21,13 +21,19 @@
     />
 
     <b-tabs content-class="mt-3">
-      <b-tab title="Buenos" active>
+      <b-tab title="A" active>
+        <GoodEggs/>        
+      </b-tab>
+      <b-tab title="Blancos">
         <GoodEggs/>        
       </b-tab>
       <b-tab title="Sobrante">
         <ExtraEggs/>
       </b-tab>
-      <b-tab title="Rotos">
+      <b-tab title="Quiñados">
+        <BrokenEggs/>
+      </b-tab>
+      <b-tab title="Baja">
         <BrokenEggs/>
       </b-tab>
     </b-tabs>   

@@ -1,0 +1,10 @@
+query getSection($id: ID!) {
+  section(id: $id) {
+    id
+    name
+    collects {
+      id
+      quantity
+    }      
+  }
+}

@@ -26,7 +26,7 @@ export default {
       {
         key: "weigth",        
         sortable: true,
-        label: "peso",
+        label: "Cant. Unidad",
         class: "text-center"
       },
       {

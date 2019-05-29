@@ -1,0 +1,9 @@
+mutation createCollect($quantity: Int, $sectionId: ID!){
+  createCollect(
+    quantity: $quantity,
+    sectionId: $sectionId
+  ){
+    quantity
+    id
+  }
+}

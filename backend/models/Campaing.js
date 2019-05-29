@@ -7,29 +7,26 @@ const CampaingSchema = new mongoose.Schema({
   month: {
     type: Number
   },
-  start_at: {
+  startAt: {
     type: Date,    
   },
-  end_at: {
+  endAt: {
     type: Date,    
   },
-  steps: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Section'
-  }],
   barn: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    ref: 'Barn'
   },
-  quantity_bird: {
+  sections: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Section'
+  }],  
+  quantityBird: {
     type: Number
   },
   status: {
-    type: String,
-    default: 'ACTIVE',
-    uppercase: true,
-    enum:['ACTIVE','INACTIVE'],
-    required: 'status can be either ACTIVE or INACTIVE'
+    type: Boolean,
+    default: true    
   },
 });
 

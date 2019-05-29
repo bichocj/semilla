@@ -37,15 +37,14 @@ export default {
         key: "actions",
         label: ""
       }
-    ],
-  items: [
-      { number: 1, time:"07:30", quantity: 210 },
-      { number: 2, time:"08:30", quantity: 210 },
-    ]
+    ],  
   }),
   components: {
     BottomInput,
   },
+  props: [
+    'items',
+  ],
   methods: {
     addItem(val) {      
       this.items.push({

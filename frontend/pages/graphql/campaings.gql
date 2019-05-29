@@ -1,0 +1,17 @@
+query getCampaings {
+  campaings {
+    id
+    year
+    month
+    startAt
+    endAt
+    barn {
+      id
+      name
+    }
+    sections {
+      id
+      name
+    }
+  }
+}

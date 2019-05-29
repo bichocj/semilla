@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 var dotenv = require('dotenv');
 dotenv.config();
 
-const DB = process.env.DB;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(DB, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 mongoose.connection.once('open', () =>
   console.log('Connected to a MongoDB instance')

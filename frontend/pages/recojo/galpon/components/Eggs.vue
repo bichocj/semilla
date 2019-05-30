@@ -13,12 +13,14 @@
         :items="items"
         :fields="fields"
         class="mb-7"> 
-          <template slot="actions" slot-scope="data">
+          <template slot="show_details" slot-scope="data">
               <delete-collect-button 
                 :collectionId="data.item.id"
                 :onDelete="removeFromTable"
+                :row="data"
               />
           </template>
+           <template slot="row-details" slot-scope="row"></template>
       </b-table>
       <BottomInput
         label="Agregar cantidad de huevos"
@@ -28,8 +30,8 @@
   </ApolloMutation>
 </template>
 <script>
-import BottomInput from '~/components/BottomInput'
-import DeleteCollectButton from './DeleteCollectButton'
+import BottomInput from "~/components/BottomInput";
+import DeleteCollectButton from "./DeleteCollectButton";
 export default {
   data: () => ({
     quantity: 23,
@@ -48,47 +50,41 @@ export default {
         sortable: true,
         label: "Cantidad"
       },
-      {
-        key: "actions",
-        label: ""
-      }
-    ],  
+      'show_details'      
+    ]
   }),
   components: {
     BottomInput,
     DeleteCollectButton
   },
-  props: [
-    'items',
-    'sectionId',
-  ],
+  props: ["items", "sectionId"],
   methods: {
-    updateQuantity(val){
-      this.quantity = parseInt(val)
+    updateQuantity(val) {
+      this.quantity = parseInt(val);
     },
-    getVariables() {      
+    getVariables() {
       return {
         quantity: this.quantity,
-        sectionId: this.sectionId,
-      }
+        sectionId: this.sectionId
+      };
     },
-    addToTable(data) {      
-      const { createCollect : { id }} = data
+    addToTable(data) {
+      const { data: { createCollect: { id } } } = data;
       this.items.push({
         number: this.items.length + 1,
-        time: '09:00',
+        time: "09:00",  
         quantity: this.quantity,
         id
-      })
-      window.scrollTo(0,document.body.scrollHeight);
+      });
+      window.scrollTo(0, document.body.scrollHeight);
     },
-    removeFromTable(data){      
-      const { data: { deleteCollect: { id, isSuccess } }  } = data      
-      const element = this.items.findIndex(item => item.id === id )      
-      this.items.splice(element,1)
+    removeFromTable(data) {
+      const { data: { deleteCollect: { id, isSuccess } } } = data;
+      const element = this.items.findIndex(item => item.id === id);
+      this.items.splice(element, 1);
     }
   }
-}
+};
 </script>
 <style>
 table .flip-list-move {

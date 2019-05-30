@@ -25,6 +25,10 @@ const typeDefs = gql`
     id: ID!
     quantity: Int
   }
+  type CommonResponse {
+    id: ID!
+    isSuccess: Boolean
+  }
   type Query {
     barns: [Barn]
     campaings: [Campaing]
@@ -34,6 +38,7 @@ const typeDefs = gql`
     createBarn(name: String): Barn
     createCampaing(year: Int, month: Int, startAt: String, endAt: String, barnId: ID, quantityBird: Int, sectionsNames: [String]): Campaing
     createCollect(sectionId: ID, quantity: Int): Collect
+    deleteCollect(id: ID!): CommonResponse
   }
 `;
 

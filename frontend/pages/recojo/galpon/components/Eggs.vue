@@ -7,9 +7,17 @@
     <template slot-scope="{ mutate, loading, error }">    
       <p class="text-center">Cantidad de huevos recogidos</p>    
       <div class="text-center">Historial del día</div>
-      <b-table responsive hover :items="items" :fields="fields" class="mb-7"> 
-          <template slot="actions" slot-scope="data">                            
-              <b-button variant="danger">Eliminar</b-button>
+      <b-table
+        responsive
+        hover
+        :items="items"
+        :fields="fields"
+        class="mb-7"> 
+          <template slot="actions" slot-scope="data">
+              <delete-collect-button 
+                :collectionId="data.item.id"
+                :onDelete="removeFromTable"
+              />
           </template>
       </b-table>
       <BottomInput
@@ -21,6 +29,7 @@
 </template>
 <script>
 import BottomInput from '~/components/BottomInput'
+import DeleteCollectButton from './DeleteCollectButton'
 export default {
   data: () => ({
     quantity: 23,
@@ -47,6 +56,7 @@ export default {
   }),
   components: {
     BottomInput,
+    DeleteCollectButton
   },
   props: [
     'items',
@@ -63,13 +73,25 @@ export default {
       }
     },
     addToTable(data) {      
+      const { createCollect : { id }} = data
       this.items.push({
         number: this.items.length + 1,
         time: '09:00',
-        quantity: this.quantity
+        quantity: this.quantity,
+        id
       })
       window.scrollTo(0,document.body.scrollHeight);
+    },
+    removeFromTable(data){      
+      const { data: { deleteCollect: { id, isSuccess } }  } = data      
+      const element = this.items.findIndex(item => item.id === id )      
+      this.items.splice(element,1)
     }
   }
 }
 </script>
+<style>
+table .flip-list-move {
+  transition: transform 1s;
+}
+</style>

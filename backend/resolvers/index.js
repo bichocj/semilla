@@ -58,6 +58,15 @@ async function createCollect(data) {
   return collect
 }
 
+async function deleteCollect(data) {
+  const { id } = data
+  await Collect.remove({_id: id})
+  return {
+    id,
+    isSuccess: true
+  }
+}
+
 const resolvers = {
   Query: {
     barns: async() => { 
@@ -81,6 +90,9 @@ const resolvers = {
     createCollect: async (parent, data, context) => {     
       return createCollect(data)
     },
+    deleteCollect: async (parent, data, context) => {      
+      return deleteCollect(data)
+    }
   }
 };
 

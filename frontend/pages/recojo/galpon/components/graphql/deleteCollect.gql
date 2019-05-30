@@ -1,0 +1,8 @@
+mutation deleteCollect($id: ID!){
+  deleteCollect(
+    id: $id
+  ){    
+    id
+    isSuccess
+  }
+}

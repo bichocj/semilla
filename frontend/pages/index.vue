@@ -6,7 +6,7 @@
         <h2 v-if="loading || data === null">
           ...
         </h2>
-        <section class="mt-3">
+        <section class="mt-3" v-else>
           <p>Tareas de:</p>
           <section v-if="data">
             <b-tabs content-class="mt-3">

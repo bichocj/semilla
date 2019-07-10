@@ -1,38 +1,17 @@
 <template>
   <div>
-    <div class="d-flex mb-3">
+    <div class="d-flex justify-content-between mb-3">
       <b-input-group size="xs" prepend="Dia">
         <b-form-input id="date-picker-custom-input" v-model="dateAt" required></b-form-input>
       </b-input-group>
-      <div class="mx-3"></div>
+      <div class="mx-1"></div>
       <b-input-group size="xs" prepend="Hora">
         <b-form-input id="time-picker-custom-input" v-model="timeAt" required></b-form-input>
       </b-input-group>
-
-<!--
-      <b-form-group
-          id="date-picker-custom-input"
-          label-cols-sm="4"
-          label-cols-lg="3"                        
-          label="Fecha"
-          label-for="date-picker-custom-input">
-          <b-form-input id="date-picker-custom-input" v-model="dateAt" required></b-form-input>
-      </b-form-group>
-      <div class="mx-3"></div>
-      <b-form-group
-        id="time-picker-custom-input"
-        label-cols-sm="4"
-        label-cols-lg="3"                        
-        label="Hora"
-        label-for="time-picker-custom-input">
-        <b-form-input id="time-picker-custom-input" v-model="timeAt" required></b-form-input>
-    </b-form-group>        
-    -->
     </div>
     <date-picker
       v-model="dateAt"
-      :color="'#ed6f6f'"
-      :jump-minute="15"      
+      :color="'#ed6f6f'"     
       locale="es"
       format="YYYY-MM-DD"
       element="date-picker-custom-input"
@@ -61,9 +40,16 @@ export default {
   mixins: [utils],
   data: () => ({ 
     dateAt: null,
-    timeAt: null,
-    quantity: null,
+    timeAt: null,    
   }),
+  watch: {
+    dateAt(val) {
+      this.onChangeDate(val);
+    },
+    timeAt(val) {
+      this.onChangeTime(val);
+    },
+  },
   props: [
     'onChangeDate',
     'onChangeTime'

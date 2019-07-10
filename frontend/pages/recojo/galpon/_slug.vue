@@ -23,7 +23,7 @@
               </div>
           </div>
           <section class="mt-3">                          
-              <DateTimePicker />
+              <DateTimePicker :onChangeDate="updateDate" :onChangeTime="updateTime" />
               <b-tabs content-class="mt-3">
                   <b-tab title="Huevos" active>
                       <Eggs
@@ -79,6 +79,12 @@ export default {
       return {
         "id": val[2]
       }
+    },
+    updateDate(val) {      
+      console.log('updateDate', val)
+    },
+    updateTime(val) {
+      console.log('updateTime', val)
     }
   }
 };

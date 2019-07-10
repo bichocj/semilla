@@ -28,14 +28,16 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/assets/scss/app.scss'
+    '@/assets/scss/app.scss',
+    '@/assets/animation.svg'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/echarts.js'
+    '@/plugins/echarts.js',
+    '@/plugins/globals.js'
   ],
 
   /*

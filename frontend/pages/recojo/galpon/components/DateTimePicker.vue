@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div class="d-flex">
+    <div class="d-flex mb-3">
+      <b-input-group size="xs" prepend="Dia">
+        <b-form-input id="date-picker-custom-input" v-model="dateAt" required></b-form-input>
+      </b-input-group>
+      <div class="mx-3"></div>
+      <b-input-group size="xs" prepend="Hora">
+        <b-form-input id="time-picker-custom-input" v-model="timeAt" required></b-form-input>
+      </b-input-group>
+
+<!--
       <b-form-group
           id="date-picker-custom-input"
           label-cols-sm="4"
@@ -18,6 +27,7 @@
         label-for="time-picker-custom-input">
         <b-form-input id="time-picker-custom-input" v-model="timeAt" required></b-form-input>
     </b-form-group>        
+    -->
     </div>
     <date-picker
       v-model="dateAt"

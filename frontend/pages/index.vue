@@ -1,10 +1,10 @@
  <template>
     <ApolloQuery
       :query="require('./graphql/campaings.gql')"
-    >
-      <template slot-scope="{ result: { loading, error, data } }">      
+    >      
+      <template slot-scope="{ result: { loading, error, data } }">              
         <h2 v-if="loading || data === null">
-          ...
+          <LoadingAnimation />
         </h2>
         <section class="mt-3" v-else>
           <p>Tareas de:</p>

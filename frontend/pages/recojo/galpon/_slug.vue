@@ -5,24 +5,24 @@
   >
     <template slot-scope="{ result: { loading, error, data } }">      
       <h2 v-if="loading || data === null">
-        ...
+        <LoadingAnimation />
       </h2>
       <div v-else >    
         <div v-if="data" >
+          <div class="text-center">Ingresar nuevo recojo en</div>
           <div>
-              <div class="d-flex justify-content-center title">
-                  <div>{{shed}}</div>
-                  <div>-</div>
-                  <div>{{sectionName}}</div>
-              </div>
               <div class="d-flex justify-content-center subtitle">
                   <div>Galpon </div>
                   <div class="mx-1"> - </div>
                   <div> Sección</div>
               </div>
+              <div class="d-flex justify-content-center title">
+                  <div>{{shed}}</div>
+                  <div>-</div>
+                  <div>{{sectionName}}</div>
+              </div>
           </div>
-          <section class="mt-3">            
-              <div class="text-center">Ingresar nuevo recojo en</div>
+          <section class="mt-3">                          
               <DateTimePicker />
               <b-tabs content-class="mt-3">
                   <b-tab title="Huevos" active>

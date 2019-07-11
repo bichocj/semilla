@@ -5,6 +5,7 @@ query getSection($id: ID!) {
     collects {
       id
       quantity
+      datetime
     }      
   }
 }

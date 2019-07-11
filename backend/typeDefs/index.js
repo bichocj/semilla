@@ -23,7 +23,8 @@ const typeDefs = gql`
   }
   type Collect {
     id: ID!
-    quantity: Int
+    quantity: Int,
+    datetime: String
   }
   type CommonResponse {
     id: ID!
@@ -37,7 +38,7 @@ const typeDefs = gql`
   type Mutation {
     createBarn(name: String): Barn
     createCampaing(year: Int, month: Int, startAt: String, endAt: String, barnId: ID, quantityBird: Int, sectionsNames: [String]): Campaing
-    createCollect(sectionId: ID, quantity: Int): Collect
+    createCollect(sectionId: ID, quantity: Int, datetime: String): Collect
     deleteCollect(id: ID!): CommonResponse
   }
 `;

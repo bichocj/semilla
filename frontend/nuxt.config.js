@@ -46,6 +46,10 @@ module.exports = {
   modules: [
     // Doc: https://bootstrap-vue.js.org/docs/    
     ['bootstrap-vue/nuxt', {css: false}],
+    ['@nuxtjs/date-fns', {      
+      defaultLocale: 'es',
+      format: 'DD-MM-YY'
+    }],
     '@nuxtjs/apollo'
   ],
 

@@ -1,9 +1,11 @@
-mutation createCollect($quantity: Int, $sectionId: ID!){
+mutation createCollect($sectionId: ID!, $quantity: Int, $datetime: String ){
   createCollect(
+    sectionId: $sectionId,
     quantity: $quantity,
-    sectionId: $sectionId
+    datetime: $datetime
   ){
-    quantity
     id
+    quantity
+    datetime
   }
 }

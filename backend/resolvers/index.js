@@ -12,15 +12,7 @@ async function createBarn(data) {
 async function getCampaings() {
   const campings = await Campaing.find()
   .populate('barn')
-  .populate('sections')  
-  /* .populate({
-    path: 'sections',
-    model: 'Section',
-    populate: {
-      path: 'collects',
-      model: 'Collect'
-    }
-  }) */ 
+  .populate('sections')    
   .exec();
   return campings
 }
@@ -48,8 +40,11 @@ async function createCampaing(data) {
 }
 
 async function createCollect(data) {
-  const { sectionId, quantity} = data
-  const collect = await Collect.create({quantity})
+  const { sectionId, quantity } = data  
+  let { datetime } = data
+  datetime = new Date(parseInt(datetime))
+  const collect = await Collect.create({quantity, datetime})
+  
   await Section.updateOne({ _id: sectionId },
     {
       $push: { collects: collect }

@@ -11,7 +11,9 @@
       cancel-title="No, cancelar"
       centered 
       @ok="deleteCollection">
-      <p class="my-4">¿Seguro que deseas eliminar este registro?</p>
+
+      <p class="mt-4 text-center">¿Seguro que deseas eliminar este registro?</p>
+      <p class="mb-4 text-center">hora: {{ $dateFns.format(new Date(parseInt(deletingCollection.datetime)),'HH:mm') }}  - cantidad: {{deletingCollection.quantity}}</p>
     </b-modal>
     <b-table
       responsive
@@ -26,7 +28,7 @@
              {{ $dateFns.format(new Date(parseInt(data.item.datetime)),'HH:mm') }} 
         </template>
         <template slot="show_details" slot-scope="data">
-          <b-button size="sm" variant="outline-danger" @click="openModalConfirm(data.item.id)" ref="btnShow">
+          <b-button size="sm" variant="outline-danger" @click="openModalConfirm(data.item)" ref="btnShow">
             <b-btn-close class="text-danger"/>
           </b-button>
         </template>
@@ -70,7 +72,7 @@ export default {
         class: 'text-right'
       },      
     ],
-    deletingCollectionId: null
+    deletingCollection: {}
   }),
   components: {
     BottomInput,
@@ -90,7 +92,7 @@ export default {
     },
     deleteCollection(bvModalEvt){
       bvModalEvt.preventDefault()
-      const variables = {id: this.deletingCollectionId}
+      const variables = {id: this.deletingCollection.id}
       this.$apollo.mutate({mutation: deleteCollectMutation, variables}).then(data => {
         this.removeFromTable(data)
         this.$nextTick(() => {
@@ -115,8 +117,9 @@ export default {
       const element = this.items.findIndex(item => item.id === id);
       this.items.splice(element, 1);
     },
-    openModalConfirm(collectionId) {
-      this.deletingCollectionId = collectionId
+    openModalConfirm(item) {
+      console.log(item)
+      this.deletingCollection = item
       this.$root.$emit('bv::show::modal', 'modal-confirmation', '#btnShow')
     }
   }

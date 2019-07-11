@@ -1,0 +1,11 @@
+mutation createDeadChicken($sectionId: ID!, $quantity: Int, $datetime: String ){
+  createDeadChicken(
+    sectionId: $sectionId,
+    quantity: $quantity,
+    datetime: $datetime
+  ){
+    id
+    quantity
+    datetime
+  }
+}

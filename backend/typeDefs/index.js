@@ -9,6 +9,7 @@ const typeDefs = gql`
     id: ID!
     name: String
     collects: [Collect]
+    deads: [Collect]
   }
   type Campaing {
     id: ID!
@@ -40,6 +41,8 @@ const typeDefs = gql`
     createCampaing(year: Int, month: Int, startAt: String, endAt: String, barnId: ID, quantityBird: Int, sectionsNames: [String]): Campaing
     createCollect(sectionId: ID, quantity: Int, datetime: String): Collect
     deleteCollect(id: ID!): CommonResponse
+    createDeadChicken(sectionId: ID, quantity: Int, datetime: String): Collect
+    deleteDeadChicken(id: ID!): CommonResponse
   }
 `;
 

@@ -9,6 +9,10 @@ const SectionSchema = new mongoose.Schema( {
   collects: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Collect'
+  }],  
+  deads: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Collect'
   }] 
 });
 

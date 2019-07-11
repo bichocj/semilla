@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 const CollectSchema = new mongoose.Schema( {
+  type: {
+    type: String,  
+    uppercase: true,
+    required: 'status can be either ACTIVE or INACTIVE',
+    enum: ['COLLECTED', 'DEAD_CHICKEN'],
+    default: 'COLLECTED'
+  },
   quantity: {
     type: Number,    
     required: 'quantity cannot be blank'

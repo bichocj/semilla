@@ -37,6 +37,8 @@
                       <Chicken
                         label="agregar gallinas"
                         onSubmit=""
+                        :sectionId="sectionId"
+                        :items="data.section.deads"
                       />
                   </b-tab>
               </b-tabs>                                

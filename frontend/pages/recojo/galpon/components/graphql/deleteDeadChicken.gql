@@ -1,0 +1,8 @@
+mutation deleteDeadChicken($sectionId: ID!, $id: ID!){
+  deleteDeadChicken(
+    id: $id
+  ){    
+    id
+    isSuccess
+  }
+}

@@ -6,6 +6,11 @@ query getSection($id: ID!) {
       id
       quantity
       datetime
+    }
+    deads {
+      id
+      quantity
+      datetime
     }      
   }
 }

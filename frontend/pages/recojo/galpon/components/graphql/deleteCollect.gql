@@ -1,4 +1,4 @@
-mutation deleteCollect($id: ID!){
+mutation deleteCollect($sectionId: ID!, $id: ID!){
   deleteCollect(
     id: $id
   ){    

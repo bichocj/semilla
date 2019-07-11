@@ -20,6 +20,7 @@ async function getCampaings() {
 async function getSection(_id) {
   const section = await Section.findOne({_id})  
   .populate('collects')    
+  .populate('deads')    
   .exec();  
   return section
 }
@@ -39,18 +40,55 @@ async function createCampaing(data) {
    });  
 }
 
-async function createCollect(data) {
-  const { sectionId, quantity } = data  
-  let { datetime } = data
-  datetime = new Date(parseInt(datetime))
-  const collect = await Collect.create({quantity, datetime})
-  
+async function createCollect_COLLECTED(data) {
+  const collect = await createCollect(data, 'COLLECTED')
+  const { sectionId } = data  
   await Section.updateOne({ _id: sectionId },
     {
       $push: { collects: collect }
     }
   ).exec();
   return collect
+}
+
+async function deleteCollect_COLLECTED(data) {
+  const result = await deleteCollect(data)
+  const { sectionId } = data  
+  await Section.updateOne({ _id: sectionId },
+    {
+      $pop: { collects: collect }
+    }
+  ).exec();
+  return result
+}
+
+async function createCollect_DEAD_CHICKEN(data) {
+  const collect = await createCollect(data, 'DEAD_CHICKEN')
+  const { sectionId } = data  
+  await Section.updateOne({ _id: sectionId },
+    {
+      $push: { deads: collect }
+    }
+  ).exec();
+  return collect
+}
+
+async function deleteCollect_DEAD_CHICKEN(data) {
+  const result = await deleteCollect(data)
+  const { sectionId } = data  
+  await Section.updateOne({ _id: sectionId },
+    {
+      $pop: { deads: collect }
+    }
+  ).exec();
+  return result
+}
+
+async function createCollect(data, type) {
+  const { quantity } = data  
+  let { datetime } = data
+  datetime = new Date(parseInt(datetime))  
+  return await Collect.create({quantity, datetime})    
 }
 
 async function deleteCollect(data) {
@@ -61,6 +99,7 @@ async function deleteCollect(data) {
     isSuccess: true
   }
 }
+
 
 const resolvers = {
   Query: {
@@ -83,10 +122,16 @@ const resolvers = {
       return createCampaing(data)
     },    
     createCollect: async (parent, data, context) => {     
-      return createCollect(data)
+      return createCollect_COLLECTED(data)
     },
     deleteCollect: async (parent, data, context) => {      
-      return deleteCollect(data)
+      return deleteCollect_COLLECTED(data)
+    },
+    createDeadChicken: async (parent, data, context) => {     
+      return createCollect_DEAD_CHICKEN(data)
+    },
+    deleteDeadChicken: async (parent, data, context) => {      
+      return deleteCollect_DEAD_CHICKEN(data)
     }
   }
 };

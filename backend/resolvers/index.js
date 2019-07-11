@@ -18,10 +18,7 @@ async function getCampaings() {
 }
 
 async function getSection(_id) {
-  const section = await Section.findOne({_id})  
-  .populate('collects')    
-  .populate('deads')    
-  .exec();  
+  const section = await Section.findOne({_id}).exec();  
   return section
 }
 
@@ -40,55 +37,11 @@ async function createCampaing(data) {
    });  
 }
 
-async function createCollect_COLLECTED(data) {
-  const collect = await createCollect(data, 'COLLECTED')
-  const { sectionId } = data  
-  await Section.updateOne({ _id: sectionId },
-    {
-      $push: { collects: collect }
-    }
-  ).exec();
-  return collect
-}
-
-async function deleteCollect_COLLECTED(data) {
-  const result = await deleteCollect(data)
-  const { sectionId } = data  
-  await Section.updateOne({ _id: sectionId },
-    {
-      $pop: { collects: collect }
-    }
-  ).exec();
-  return result
-}
-
-async function createCollect_DEAD_CHICKEN(data) {
-  const collect = await createCollect(data, 'DEAD_CHICKEN')
-  const { sectionId } = data  
-  await Section.updateOne({ _id: sectionId },
-    {
-      $push: { deads: collect }
-    }
-  ).exec();
-  return collect
-}
-
-async function deleteCollect_DEAD_CHICKEN(data) {
-  const result = await deleteCollect(data)
-  const { sectionId } = data  
-  await Section.updateOne({ _id: sectionId },
-    {
-      $pop: { deads: collect }
-    }
-  ).exec();
-  return result
-}
-
 async function createCollect(data, type) {
-  const { quantity } = data  
+  const { quantity, sectionId } = data  
   let { datetime } = data
   datetime = new Date(parseInt(datetime))  
-  return await Collect.create({quantity, datetime})    
+  return await Collect.create({sectionId, quantity, datetime})    
 }
 
 async function deleteCollect(data) {
@@ -102,7 +55,66 @@ async function deleteCollect(data) {
 
 
 const resolvers = {
-  Query: {
+  Campaing: {
+    last5daysCollected: async(campaing) => {         
+      const docs = await Collect.aggregate([
+        { 
+          $match: {
+            sectionId: {
+              "$in": campaing.sections
+            }
+          }
+        },            
+        {
+          $group:{
+              _id: { day: { $dayOfMonth: "$datetime"}, month: { $month: "$datetime" }, year: { $year: "$datetime" }, sectionId: "$sectionId" },
+              totalAmount: { $sum: "$quantity" },
+              count: { $sum: 1 }
+            }
+        },
+      ])
+      const result = []
+      campaing.sections.forEach(section => {
+        const tmp = []
+        docs.forEach(doc => {
+          if(String(doc._id.sectionId) === String(section._id)){
+            tmp.push({
+              date: `${doc._id.day}-${doc._id.month}-${doc._id.year}`,
+              quantity: doc.totalAmount
+            })
+          }
+        })
+
+        result.push({
+          sectionName: section.name,
+          values: tmp 
+        })
+      })
+
+      console.log(result)
+      
+      return result
+    },
+    allCollected: async() => { 
+      return [{
+        date: 'hoy',
+        quantity: 0
+      },
+      {
+        date: 'hoy',
+        quantity: 0
+      }]
+    },
+  },
+  Section: {
+    collects: async(section) => {      
+      return await Collect.find({sectionId: section.id, type: 'COLLECTED'}).exec();  
+    },
+    deads: async(section) => {
+      return await Collect.find({sectionId: section.id, type: 'DEAD_CHICKEN'}).exec();  
+    }
+  },
+  Query: {    
     barns: async() => { 
       return getBarns()
     },
@@ -122,16 +134,16 @@ const resolvers = {
       return createCampaing(data)
     },    
     createCollect: async (parent, data, context) => {     
-      return createCollect_COLLECTED(data)
+      return createCollect(data, "COLLECTED")
     },
     deleteCollect: async (parent, data, context) => {      
-      return deleteCollect_COLLECTED(data)
+      return deleteCollect(data)
     },
     createDeadChicken: async (parent, data, context) => {     
-      return createCollect_DEAD_CHICKEN(data)
+      return createCollect(data, "DEAD_CHICKEN")
     },
     deleteDeadChicken: async (parent, data, context) => {      
-      return deleteCollect_DEAD_CHICKEN(data)
+      return deleteCollect(data)
     }
   }
 };

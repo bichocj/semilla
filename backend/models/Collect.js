@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const CollectSchema = new mongoose.Schema( {
+  sectionId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Section'
+  },
   type: {
     type: String,  
     uppercase: true,

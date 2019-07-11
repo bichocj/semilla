@@ -11,6 +11,18 @@ const typeDefs = gql`
     collects: [Collect]
     deads: [Collect]
   }
+  type Value {
+    date: String
+    quantity: Int
+  }
+  type CollectedSection {
+    sectionName: String
+    values: [Value]
+  }
+  type Collected {    
+    date: String
+    quantity: Int
+  }
   type Campaing {
     id: ID!
     year: Int
@@ -19,6 +31,8 @@ const typeDefs = gql`
     endAt: String
     barn: Barn
     sections: [Section]
+    last5daysCollected: [CollectedSection]
+    allCollected: [Collected]
     quantityBird: Int
     status: Boolean
   }

@@ -17,9 +17,14 @@ async function getCampaings() {
   return campings
 }
 
-async function getSection(_id) {
-  const section = await Section.findOne({_id}).exec();  
-  return section
+async function getSection(_id, datetime) {
+  const section = await Section.findOne({_id}).exec();      
+  const parsed = {
+    id: section._id,
+    name: section.name,    
+    datetime: datetime
+  }
+  return parsed
 }
 
 async function createCampaing(data) {
@@ -53,6 +58,21 @@ async function deleteCollect(data) {
   }
 }
 
+function getMaxMinDate(datetime){
+  if(datetime !== undefined) {
+    datetime = new Date(parseInt(datetime))
+  }
+  if(isNaN(datetime)){
+    datetime = new Date()
+  }      
+  datetime.setHours(0)
+  datetime.setMinutes(0)
+  const minDatetime = new Date(datetime.getTime())      
+  datetime.setHours(23)
+  datetime.setMinutes(59)
+  const maxDatetime = new Date(datetime.getTime())
+  return {maxDatetime, minDatetime}
+}
 
 const resolvers = {
   Campaing: {
@@ -89,41 +109,68 @@ const resolvers = {
           sectionName: section.name,
           values: tmp 
         })
-      })
-
-      console.log(result)
+      })      
       
       return result
     },
-    allCollected: async() => { 
-      return [{
-        date: 'hoy',
-        quantity: 0
-      },
-      {
-        date: 'hoy',
-        quantity: 0
-      }]
+    allCollected: async(campaing) => { 
+      const docs = await Collect.aggregate([
+        { 
+          $match: {
+            sectionId: {
+              "$in": campaing.sections
+            }
+          }
+        },            
+        {
+          $group:{
+              _id: { day: { $dayOfMonth: "$datetime"}, month: { $month: "$datetime" }, year: { $year: "$datetime" }},
+              totalAmount: { $sum: "$quantity" },
+              count: { $sum: 1 }
+            }
+        },
+      ])
+      const result = []      
+      docs.forEach(doc => {          
+        result.push({
+          date: `${doc._id.day}-${doc._id.month}-${doc._id.year}`,
+          quantity: doc.totalAmount
+        })
+      })
+
+      return result
     },
   },
   Section: {
     collects: async(section) => {      
-      return await Collect.find({sectionId: section.id, type: 'COLLECTED'}).exec();  
+      let { datetime } = section
+      const {maxDatetime, minDatetime} = getMaxMinDate(datetime)
+      return await Collect.find({
+        sectionId: section.id, 
+        type: 'COLLECTED', 
+        datetime: { $gte: minDatetime, $lte: maxDatetime }
+      }).exec();  
     },
     deads: async(section) => {
-      return await Collect.find({sectionId: section.id, type: 'DEAD_CHICKEN'}).exec();  
+      let { datetime } = section
+      const {maxDatetime, minDatetime} = getMaxMinDate(datetime)
+      return await Collect.find({
+        sectionId: section.id, 
+        type: 'DEAD_CHICKEN',
+        datetime: { $gte: minDatetime, $lte: maxDatetime }
+      }).exec();  
     }
   },
   Query: {    
     barns: async() => { 
       return getBarns()
     },
-    campaings: async() => {
+    campaings: async(parent, data, context) => {      
       return getCampaings()
     },
     section: async(parent, data, context) => {      
-      const { id } = data
-      return getSection(id)
+      const { id, datetime } = data
+      return getSection(id, datetime)
     }
   },
   Mutation: {

@@ -78,10 +78,10 @@ export default {
     BottomInput,
     DeleteCollectButton
   },
-  props: ["items", "sectionId"],
+  props: ["items", "sectionId", "datetime"],
   methods: {
-    addCollection() {       
-      const datetime = new Date().getTime().toString()
+    addCollection() {      
+      const datetime = this.datetime.getTime().toString()
       const variables = {
         quantity: this.quantity,
         sectionId: this.sectionId,

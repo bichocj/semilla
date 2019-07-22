@@ -1,5 +1,5 @@
-query getSection($id: ID!) {
-  section(id: $id) {
+query getSection($id: ID!, $datetime: String) {
+  section(id: $id, datetime: $datetime) {
     id
     name
     collects {

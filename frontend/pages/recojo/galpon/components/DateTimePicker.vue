@@ -22,7 +22,7 @@
       :color="'#ed6f6f'"
       :jump-minute="10"
       locale="es"
-      format="hh:mm"
+      format="HH:mm"
       element="time-picker-custom-input"
       class="w-100"
       type="time-a"  
@@ -31,6 +31,7 @@
 </template>
 <script>
 import VuePersianDatetimePicker from "vue-persian-datetime-picker";
+import { parse } from 'date-fns'
 import utils from '~/utils/utils';
 
 export default {  
@@ -41,18 +42,36 @@ export default {
   data: () => ({ 
     dateAt: null,
     timeAt: null,    
+    currentDateTime: new Date(),
+    hasSkipFirstDateAt: false,
+    hasSkipFirstTimeAt: false
   }),
   watch: {
-    dateAt(val) {
-      this.onChangeDate(val);
+    dateAt(val) {      
+      const currentDateTime = parse(val,'YYYY-MM-DD', val)      
+      this.currentDateTime.setDate(currentDateTime.getDate())
+      this.currentDateTime.setMonth(currentDateTime.getMonth())
+      this.currentDateTime.setFullYear(currentDateTime.getFullYear())                        
+      if (this.hasSkipFirstDateAt){        
+        this.onChangeDate(this.currentDateTime);
+      } else {
+        this.hasSkipFirstDateAt = true
+      } 
     },
     timeAt(val) {
-      this.onChangeTime(val);
+      const hourTime = val.split(':')
+      this.currentDateTime.setHours(hourTime[0])
+      this.currentDateTime.setMinutes(hourTime[1])
+      if (this.hasSkipFirstTimeAt){
+        this.onChangeDateTime(this.currentDateTime);
+      } else {
+        this.hasSkipFirstTimeAt = true
+      }
     },
   },
   props: [
+    'onChangeDateTime',
     'onChangeDate',
-    'onChangeTime'
   ],
   mounted() {
     this.dateAt = this.getToday();

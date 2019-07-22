@@ -8,16 +8,13 @@ const typeDefs = gql`
   type Section {
     id: ID!
     name: String
+    datetime: String,
     collects: [Collect]
     deads: [Collect]
   }
-  type Value {
-    date: String
-    quantity: Int
-  }
   type CollectedSection {
     sectionName: String
-    values: [Value]
+    values: [Collected]
   }
   type Collected {    
     date: String
@@ -48,7 +45,7 @@ const typeDefs = gql`
   type Query {
     barns: [Barn]
     campaings: [Campaing]
-    section(id: ID!): Section
+    section(id: ID!, datetime: String): Section
   }  
   type Mutation {
     createBarn(name: String): Barn

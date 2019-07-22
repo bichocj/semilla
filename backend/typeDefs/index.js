@@ -27,8 +27,8 @@ const typeDefs = gql`
     startAt: String
     endAt: String
     barn: Barn
-    sections: [Section]
-    last5daysCollected: [CollectedSection]
+    sections: [Section]    
+    last5daysCollectedBySection: [CollectedSection]
     allCollected: [Collected]
     quantityBird: Int
     status: Boolean

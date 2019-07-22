@@ -1,6 +1,7 @@
  <template>
     <ApolloQuery
       :query="require('./graphql/campaings.gql')"
+      :variables="{withSection:true}"
     >      
       <template slot-scope="{ result: { loading, error, data } }">              
         <h2 v-if="loading || data === null">

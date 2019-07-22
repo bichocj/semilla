@@ -1,17 +1,30 @@
-query getCampaings {
+query campaings($withSection: Boolean = false, $withAllCollected: Boolean = false, $withLast5daysCollectedBySection: Boolean = false){
   campaings {
     id
     year
     month
-    startAt
-    endAt
     barn {
       id
       name
     }
-    sections {
+    sections @include(if: $withSection){
       id
       name
+      collects {
+        id
+        quantity
+      }      
+    }
+    last5daysCollectedBySection @include(if: $withLast5daysCollectedBySection) {
+      sectionName
+      values {
+        date
+        quantity
+      }
+    }
+    allCollected @include(if: $withAllCollected) {
+      date
+      quantity
     }
   }
 }

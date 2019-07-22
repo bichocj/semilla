@@ -36,6 +36,10 @@ export default {
         const today = new Date()
         today.setDate(today.getDate()-5)
         const last5 = campaing.allCollected.splice(-5)        
+        while(last5.length < 5){
+          last5.unshift({date: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`, quantity: 0})
+        }        
+        
         const data = last5.map(collect => {
           today.setDate(today.getDate()+1)
           const date = collect.date.split('-')

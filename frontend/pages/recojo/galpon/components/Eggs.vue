@@ -3,7 +3,7 @@
     <p class="text-center">Cantidad de huevos recogidos</p>    
     <div class="text-center">Historial del día</div>
     <b-modal 
-      id="modal-confirmation" 
+      id="modal-confirmation1" 
       ref="modal" 
       title="Confirmación" 
       ok-title="Si, eliminar"
@@ -120,7 +120,7 @@ export default {
     openModalConfirm(item) {
       console.log(item)
       this.deletingCollection = item
-      this.$root.$emit('bv::show::modal', 'modal-confirmation', '#btnShow')
+      this.$root.$emit('bv::show::modal', 'modal-confirmation1', '#btnShow')
     }
   }
 };

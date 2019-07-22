@@ -1,4 +1,4 @@
-mutation deleteDeadChicken($sectionId: ID!, $id: ID!){
+mutation deleteDeadChicken($id: ID!){
   deleteDeadChicken(
     id: $id
   ){    

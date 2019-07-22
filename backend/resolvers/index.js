@@ -46,7 +46,7 @@ async function createCollect(data, type) {
   const { quantity, sectionId } = data  
   let { datetime } = data
   datetime = new Date(parseInt(datetime))  
-  return await Collect.create({sectionId, quantity, datetime})    
+  return await Collect.create({sectionId, quantity, datetime, type})    
 }
 
 async function deleteCollect(data) {

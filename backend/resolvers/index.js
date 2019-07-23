@@ -96,6 +96,17 @@ async function deleteCollect(data) {
   }
 }
 
+async function updateAverageWeights(data) {
+  const {
+    averagesWeigths
+  } = data
+  averagesWeigths.forEach(item => {
+    const {id, averageWeight } = item    
+    Campaing.findOneAndUpdate({_id:id}, {averageWeight}).exec()
+  })
+  return true
+}
+
 function getMaxMinDate(datetime) {
   if (datetime !== undefined) {
     datetime = new Date(parseInt(datetime))
@@ -330,6 +341,9 @@ const resolvers = {
     },
     deleteDeadChicken: async (parent, data, context) => {
       return deleteCollect(data)
+    },
+    updateAverageWeights: async (parent, data, context) => {
+      return updateAverageWeights(data)
     }
   }
 };

@@ -117,8 +117,7 @@ export default {
       const element = this.items.findIndex(item => item.id === id);
       this.items.splice(element, 1);
     },
-    openModalConfirm(item) {
-      console.log(item)
+    openModalConfirm(item) {      
       this.deletingCollection = item
       this.$root.$emit('bv::show::modal', 'modal-confirmation1', '#btnShow')
     }

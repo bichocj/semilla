@@ -1,0 +1,3 @@
+mutation updateAverageWeights($items: [AverageWeigth])	{
+  updateAverageWeights(averagesWeigths: $items)
+}

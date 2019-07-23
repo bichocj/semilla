@@ -31,6 +31,7 @@ const typeDefs = gql`
     last5daysCollectedBySection: [CollectedSection]
     allCollected: [Collected]
     quantityBird: Int
+    averageWeight: Float
     status: Boolean
   }
   type Collect {
@@ -41,6 +42,10 @@ const typeDefs = gql`
   type CommonResponse {
     id: ID!
     isSuccess: Boolean
+  }
+  input AverageWeigth {
+    id: ID!
+    averageWeight: Float
   }
   type Query {
     barns: [Barn]
@@ -54,6 +59,7 @@ const typeDefs = gql`
     deleteCollect(id: ID!): CommonResponse
     createDeadChicken(sectionId: ID, quantity: Int, datetime: String): Collect
     deleteDeadChicken(id: ID!): CommonResponse
+    updateAverageWeights(averagesWeigths: [AverageWeigth]): Boolean
   }
 `;
 

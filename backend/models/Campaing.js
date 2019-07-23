@@ -28,6 +28,10 @@ const CampaingSchema = new mongoose.Schema({
     type: Boolean,
     default: true    
   },
+  averageWeight: {
+    type: Number,
+    default: 0 
+  }
 });
 
 const Campaing = mongoose.model('Campaing', CampaingSchema);

@@ -10,5 +10,6 @@ mongoose.connection.once('open', () =>
   console.log('Connected to a MongoDB instance')
 );
 mongoose.connection.on('error', error => console.error(error));
+mongoose.set('useFindAndModify', false);
 
 module.exports = mongoose;

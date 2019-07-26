@@ -15,8 +15,12 @@
                     <PickupTab :data="data" />             
                   </b-tab>
                   <b-tab title="Peso">
-                    <WeightTab :data="data" />                    
+                    <WeightTab :data="data" :lastUpdateOfAverageWeight="lastUpdateOfAverageWeight" />
                   </b-tab>
+                  <b-tab title="Precio">
+                    <PriceTab :price="price" :lastUpdateOfPrice="lastUpdateOfPrice" />
+                  </b-tab>
+                  <!--
                   <b-tab title="Selección">
                       <p class="text-center">
                         Aqui puedes ingresar datos de selección de huevos.
@@ -25,6 +29,7 @@
                         Ingresar datos
                       </b-button>
                   </b-tab>
+                  -->
                   <div class="text-center fixed-bottom pb-4">
                     <b-link href="/graficos">-- Ver Graficos --</b-link>
                   </div>
@@ -39,11 +44,27 @@
 </template>
 <script>
 import PickupTab from "./components/pickupTab"
+import PriceTab from "./components/priceTab"
 import WeightTab from "./components/weightTab"
+const variablesQuery = require('./graphql/variables.gql')
 export default {
+  data: () => ({
+    lastUpdateOfAverageWeight: null,
+    lastUpdateOfPrice: null,
+    price: null
+  }),
   components: {
     PickupTab,
-    WeightTab
+    WeightTab,
+    PriceTab
+  },
+  mounted() {
+    this.$apollo.query({query: variablesQuery}).then(({data}) => { 
+      const { variables: {lastUpdateOfAverageWeight, lastUpdateOfPrice, price }} = data
+      this.lastUpdateOfAverageWeight = new Date(parseInt(lastUpdateOfAverageWeight))
+      this.lastUpdateOfPrice = new Date(parseInt(lastUpdateOfPrice))
+      this.price = price
+    })
   }
 }
 </script>

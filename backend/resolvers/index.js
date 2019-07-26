@@ -1,12 +1,26 @@
-const {
+const {  
   Barn,
   Campaing,
   Collect,
-  Section
+  Section,
+  Variables
 } = require('../models')
 
 async function getBarns() {
   return await Barn.find().exec();
+}
+
+async function updatePrice(data) {
+  const {
+    price
+  } = data
+  const variable = await Variables.findOne().exec();
+  if (variable) {
+    await Variables.findOneAndUpdate({_id:variable._id}, {price}).exec()
+  } else {
+    await Variables.create({price}).exec()
+  }
+  return true
 }
 
 async function createBarn(data) {
@@ -37,6 +51,7 @@ async function getSection(_id, datetime) {
   }
   return parsed
 }
+
 
 async function createCampaing(data) {
   const {
@@ -104,7 +119,17 @@ async function updateAverageWeights(data) {
     const {id, averageWeight } = item    
     Campaing.findOneAndUpdate({_id:id}, {averageWeight}).exec()
   })
+  const variable = await Variables.findOne().exec();
+  if (variable) {
+    await Variables.findOneAndUpdate({_id:variable._id}, {lastUpdateOfAverageWeight: new Date()}).exec()
+  } else {
+    await Variables.create({lastUpdateOfAverageWeight: new Date()}).exec()
+  }
   return true
+}
+
+async function getVariables() {
+  return await Variables.findOne().exec()
 }
 
 function getMaxMinDate(datetime) {
@@ -321,6 +346,9 @@ const resolvers = {
         datetime
       } = data
       return getSection(id, datetime)
+    },    
+    variables: async (parent, data, context) => {
+      return getVariables()
     }
   },
   Mutation: {
@@ -344,7 +372,10 @@ const resolvers = {
     },
     updateAverageWeights: async (parent, data, context) => {
       return updateAverageWeights(data)
-    }
+    },
+    updatePrice: async (parent, data, context) => {
+      return updatePrice(data)
+    },
   }
 };
 

@@ -3,7 +3,7 @@
     <p class="text-center">
       Aqui puedes ingresar el <b>peso promedio de un huevo cada galpon</b>, considere ingresar 4 decimales.
     </p>
-    última actualizacion: ##/##/##
+    última actualizacion: {{ $dateFns.format(lastUpdateOfAverageWeight,'DD/MM/YYYY HH:mm') }} 
     <div v-for="campaing in data.campaings" :key="campaing.name" class="d-flex my-2">
       <div class="mx-3 my-auto">
         <h1>{{ campaing.barn.name }}</h1>
@@ -19,10 +19,12 @@
 </template>
 <script>
 const updateAverageWeights = require('./graphql/updateAverageWeights.gql')
+import { format } from 'date-fns'
 export default {
   name: "WeightTab",  
   props: [
-    "data"
+    "data",
+    "lastUpdateOfAverageWeight"
   ],
   methods: {
     async updateValues() {      
@@ -35,9 +37,7 @@ export default {
         const variables = {
           items: values
         }
-        console.log(variables)
         await this.$apollo.mutate({mutation: updateAverageWeights, variables})
-        // await this.$apollo.mutate({mutation: updateAverageWeights, variables})
       }
     }
   }

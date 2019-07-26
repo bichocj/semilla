@@ -39,6 +39,11 @@ const typeDefs = gql`
     quantity: Int,
     datetime: String
   }
+  type Variables {
+    lastUpdateOfAverageWeight: String
+    price: Float
+    lastUpdateOfPrice: String
+  }
   type CommonResponse {
     id: ID!
     isSuccess: Boolean
@@ -50,7 +55,8 @@ const typeDefs = gql`
   type Query {
     barns: [Barn]
     campaings: [Campaing]
-    section(id: ID!, datetime: String): Section
+    section(id: ID!, datetime: String): Section    
+    variables: Variables
   }  
   type Mutation {
     createBarn(name: String): Barn
@@ -60,6 +66,7 @@ const typeDefs = gql`
     createDeadChicken(sectionId: ID, quantity: Int, datetime: String): Collect
     deleteDeadChicken(id: ID!): CommonResponse
     updateAverageWeights(averagesWeigths: [AverageWeigth]): Boolean
+    updatePrice(price: Float): Boolean
   }
 `;
 

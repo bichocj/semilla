@@ -26,6 +26,8 @@ query campaings($withSection: Boolean = false, $withAllCollected: Boolean = fals
     allCollected @include(if: $withAllCollected) {
       date
       quantity
+      averageWeight
+      amount
     }
   }
 }

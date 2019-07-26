@@ -29,10 +29,10 @@
                         Ingresar datos
                       </b-button>
                   </b-tab>
-                  -->
                   <div class="text-center fixed-bottom pb-4">
                     <b-link href="/graficos">-- Ver Graficos --</b-link>
                   </div>
+                  -->
             </b-tabs>                                  
           </section>
           <h2 v-else>

@@ -15,6 +15,14 @@ const CollectSchema = new mongoose.Schema( {
     type: Number,    
     required: 'quantity cannot be blank'
   },
+  averageWeight: {
+    type: Number,    
+    required: 'averageWeight cannot be blank'
+  },
+  amount: {
+    type: Number,    
+    required: 'amount cannot be blank'
+  },
   datetime: { 
     type: Date,
     required: 'datetime cannot be blank',

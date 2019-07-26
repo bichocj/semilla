@@ -1,11 +1,14 @@
 <template>
- <div id="echarts"> 
+ <div id="echarts">    
+   <div class="text-center mx-4">
+    Montos por galpon en los ultimos 5 dias
+   </div>
    <div id="chart"></div>
  </div>
 </template>
 <script type="text/javascript">
 
-const campainQuery = require('./graphql/campaings.gql')
+const campainQuery = require('../graphql/campaings.gql')
 export default {
   name: 'Echarts',
   data () {
@@ -47,7 +50,7 @@ export default {
           const month = parseInt(date[1])
           const day = parseInt(date[2])          
           if(today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day) {
-            return collect.quantity
+            return collect.amount
           }
           return 0
         })
@@ -81,7 +84,7 @@ export default {
             }
           }
         };
-      myChart.setOption({
+      myChart.setOption({        
         color: this.getColors(),
         tooltip: {
             trigger: 'axis',

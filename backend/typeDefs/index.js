@@ -19,6 +19,8 @@ const typeDefs = gql`
   type Collected {    
     date: String
     quantity: Int
+    averageWeight: Float
+    amount: Float
   }
   type Campaing {
     id: ID!

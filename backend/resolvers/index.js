@@ -90,9 +90,23 @@ async function createCollect(data, type) {
     datetime
   } = data
   datetime = new Date(parseInt(datetime))
+  let amount = 0
+  let averageWeight=0
+  const variable = await Variables.findOne().exec();
+  const campaing = await Campaing.findOne({sections: sectionId}).exec();  
+
+  if (campaing) {
+    averageWeight = campaing.averageWeight * quantity
+  }
+  if (variable) {
+    amount = averageWeight * variable.price
+  }
+
   return await Collect.create({
     sectionId,
     quantity,
+    amount,
+    averageWeight,
     datetime,
     type
   })
@@ -237,8 +251,14 @@ const resolvers = {
                 $dayOfMonth: "$datetime"
               },
             },
-            totalAmount: {
+            totalQuantity: {
               $sum: "$quantity"
+            },
+            totalAverageWeight: {
+              $sum: "$averageWeight"
+            },
+            totalAmount: {
+              $sum: "$amount"
             },
             count: {
               $sum: 1
@@ -248,6 +268,8 @@ const resolvers = {
         {
           $project: {
             _id: "$_id",
+            totalQuantity: "$totalQuantity",
+            totalAverageWeight: "$totalAverageWeight",
             totalAmount: "$totalAmount",
             count: "$count",
           }
@@ -291,7 +313,9 @@ const resolvers = {
         currentDate.setDate(currentDate.getDate()+1)            
         result.push({
           date: `${doc._id.year}-${doc._id.month}-${doc._id.day}`,
-          quantity: doc.totalAmount
+          quantity: doc.totalQuantity,
+          amount: doc.totalAmount,
+          averageWeight: doc.totalAverageWeight
         })
       })
       return result

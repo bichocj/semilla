@@ -3,8 +3,13 @@ const {
   Collect,
   Campaing,
   Variables,
-  Section
+  Section,
+  Stats
 } = require('../models')
+
+const {
+  getMaxMinDate
+} = require('./utils')
 
 async function createCampaing(data) {
   const {
@@ -231,11 +236,29 @@ async function allCollected(campaing) {
   return result
 }
 
+async function resumeOfToday(campaing) {
+  const datetime = new Date()
+  const {
+    maxDatetime,
+    minDatetime
+  } = getMaxMinDate(datetime)
+
+  const result = await Stats.findOne({
+    campaingId: campaing.id,
+    datetime: {
+      $gte: minDatetime,
+      $lte: maxDatetime
+    }
+  }).exec();
+  return result || {}
+}
+
 module.exports = {
   createCampaing,
   getCampaings,
   updateAverageWeightPerEggs,
   updateFood,
   last5daysCollectedBySection,
-  allCollected
+  allCollected,
+  resumeOfToday
 }

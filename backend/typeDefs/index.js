@@ -32,11 +32,20 @@ const typeDefs = gql`
     sections: [Section]    
     last5daysCollectedBySection: [CollectedSection]
     allCollected: [Collected]
+    resumeOfToday: Stats
     quantityBird: Int
     averageWeightPerEgg: Float
     foodWeightPerDay: Float
     foodPrice: Float
     isActive: Boolean
+  }
+  type Stats {
+    quantityEggsCollected: Int
+    weightEggsCollected: Float
+    amountIn: Float
+    foodConsumed: Float
+    amountOut: Float
+    amountTotal: Float    
   }
   type Collect {
     id: ID!

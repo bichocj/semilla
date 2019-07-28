@@ -4,7 +4,8 @@ const {
   updateAverageWeightPerEggs, 
   updateFood,
   last5daysCollectedBySection, 
-  allCollected 
+  allCollected,
+  resumeOfToday
 } = require('./campaingResolver')
 const { getVariables, updatePrice } = require('./variablesResolver')
 const { createBarn, getBarns } = require('./barnResolver')
@@ -23,7 +24,8 @@ const { getSection, collects, deads } = require('./sectionResolver')
 const resolvers = {
   Campaing: {
     last5daysCollectedBySection,
-    allCollected
+    allCollected,
+    resumeOfToday
   },
   Section: {
     collects,

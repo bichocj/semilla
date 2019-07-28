@@ -39,12 +39,8 @@ async function createCollect(data, type) {
       $lte: maxDatetime
     }
   }).exec();
-  // console.log('stats')
-  // console.log(stats)
 
-  if (stats !== null) {
-    console.log('should update')
-    // if exists update the WeightPerEgg and amount in
+  if (stats !== null) {    
     quantityEggsCollected = quantityEggsCollected + stats.quantityEggsCollected
     weightEggsCollected = weightEggsCollected + stats.weightEggsCollected
     amountIn = stats.amountIn + amountIn
@@ -61,8 +57,6 @@ async function createCollect(data, type) {
     ).exec()
 
   } else {
-    console.log('should create')
-    // if not exists create new one with amount out and food weight
     const foodConsumed = campaing.foodWeightPerDay
     const amountOut = campaing.foodPrice * foodConsumed
     amountTotal = amountIn - amountOut

@@ -1,4 +1,4 @@
-query campaings($withSection: Boolean = false, $withAllCollected: Boolean = false, $withLast5daysCollectedBySection: Boolean = false){
+query campaings($withSection: Boolean = false, $withAllCollected: Boolean = false, $withLast5daysCollectedBySection: Boolean = false, $withResumeOfToday: Boolean = false){
   campaings {
     id
     year
@@ -30,6 +30,14 @@ query campaings($withSection: Boolean = false, $withAllCollected: Boolean = fals
       quantity
       averageWeightPerEgg
       amount
+    }
+    resumeOfToday @include(if: $withResumeOfToday) {
+      quantityEggsCollected
+      weightEggsCollected
+      amountIn
+      foodConsumed
+      amountOut
+      amountTotal
     }
   }
 }

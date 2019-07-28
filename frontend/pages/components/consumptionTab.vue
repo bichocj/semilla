@@ -11,7 +11,7 @@
 
       <b-input-group append="kg">     
         <b-form-input
-          v-model="campaing.foodWeight"        
+          v-model="campaing.foodWeightPerDay"        
           placeholder="ingrese peso"
           type="number">
         </b-form-input>
@@ -41,10 +41,10 @@ export default {
     async updateValues() {      
       const values = []
       if(this.data.campaings){
-        this.data.campaings.forEach(({id, foodWeight, foodPrice})=> {        
-          const foodWeightTmp = parseFloat(foodWeight)
+        this.data.campaings.forEach(({id, foodWeightPerDay, foodPrice})=> {        
+          const foodWeightPerDayTmp = parseFloat(foodWeightPerDay)
           const foodPriceTmp = parseFloat(foodPrice)
-          values.push({campaingId: id, foodWeight: foodWeightTmp, foodPrice: foodPriceTmp})
+          values.push({campaingId: id, foodWeightPerDay: foodWeightPerDayTmp, foodPrice: foodPriceTmp})
         })
         const variables = {
           items: values

@@ -4,7 +4,7 @@ query campaings($withSection: Boolean = false, $withAllCollected: Boolean = fals
     year
     month
     averageWeightPerEgg
-    foodWeight
+    foodWeightPerDay
     foodPrice
     barn {
       id

@@ -32,7 +32,7 @@ const CampaingSchema = new mongoose.Schema({
     type: Number,
     default: 0 
   },
-  foodWeight: {
+  foodWeightPerDay: {
     type: Number,
     default: 0 
   },

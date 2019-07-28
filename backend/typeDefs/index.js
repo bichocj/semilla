@@ -34,7 +34,7 @@ const typeDefs = gql`
     allCollected: [Collected]
     quantityBird: Int
     averageWeightPerEgg: Float
-    foodWeight: Float
+    foodWeightPerDay: Float
     foodPrice: Float
     isActive: Boolean
   }
@@ -59,7 +59,7 @@ const typeDefs = gql`
   }
   input Food {
     campaingId: ID!
-    foodWeight: Float
+    foodWeightPerDay: Float
     foodPrice: Float
   }
   type Query {

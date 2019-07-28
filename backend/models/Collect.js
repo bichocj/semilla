@@ -15,6 +15,7 @@ const CollectSchema = new mongoose.Schema( {
     type: Number,    
     required: 'quantity cannot be blank'
   },
+  /*
   averageWeightPerEgg: {
     type: Number,    
     required: 'averageWeightPerEgg cannot be blank'
@@ -22,7 +23,7 @@ const CollectSchema = new mongoose.Schema( {
   amount: {
     type: Number,    
     required: 'amount cannot be blank'
-  },
+  },*/
   datetime: { 
     type: Date,
     required: 'datetime cannot be blank',

@@ -64,8 +64,8 @@ async function updateFood(data) {
     foods
   } = data
   foods.forEach(item => {
-    const {campaingId, foodWeight, foodPrice } = item    
-    Campaing.findOneAndUpdate({_id:campaingId}, {foodWeight, foodPrice}).exec()
+    const {campaingId, foodWeightPerDay, foodPrice } = item    
+    Campaing.findOneAndUpdate({_id:campaingId}, {foodWeightPerDay, foodPrice}).exec()
   })
   const variable = await Variables.findOne().exec();
   if (variable) {

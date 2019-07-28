@@ -10,13 +10,15 @@ const { getVariables, updatePrice } = require('./variablesResolver')
 const { createBarn, getBarns } = require('./barnResolver')
 const { createCollect, deleteCollect } = require('./collectResolver')
 const { getSection, collects, deads } = require('./sectionResolver')
-const {  
+
+/*const {  
   Barn,
   Campaing,
   Collect,
   Section,
   Variables
 } = require('../models')
+*/
 
 const resolvers = {
   Campaing: {

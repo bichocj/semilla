@@ -19,7 +19,7 @@ const typeDefs = gql`
   type Collected {    
     date: String
     quantity: Int
-    averageWeight: Float
+    averageWeightPerEgg: Float
     amount: Float
   }
   type Campaing {
@@ -33,8 +33,10 @@ const typeDefs = gql`
     last5daysCollectedBySection: [CollectedSection]
     allCollected: [Collected]
     quantityBird: Int
-    averageWeight: Float
-    status: Boolean
+    averageWeightPerEgg: Float
+    foodWeight: Float
+    foodPrice: Float
+    isActive: Boolean
   }
   type Collect {
     id: ID!
@@ -42,17 +44,23 @@ const typeDefs = gql`
     datetime: String
   }
   type Variables {
-    lastUpdateOfAverageWeight: String
+    lastUpdateOfAverageWeightPerEgg: String
     price: Float
     lastUpdateOfPrice: String
+    lastUpdateOfFood: String
   }
   type CommonResponse {
     id: ID!
     isSuccess: Boolean
   }
-  input AverageWeigth {
-    id: ID!
-    averageWeight: Float
+  input AverageWeigthPerEgg {
+    campaingId: ID!
+    averageWeightPerEgg: Float
+  }
+  input Food {
+    campaingId: ID!
+    foodWeight: Float
+    foodPrice: Float
   }
   type Query {
     barns: [Barn]
@@ -67,7 +75,8 @@ const typeDefs = gql`
     deleteCollect(id: ID!): CommonResponse
     createDeadChicken(sectionId: ID, quantity: Int, datetime: String): Collect
     deleteDeadChicken(id: ID!): CommonResponse
-    updateAverageWeights(averagesWeigths: [AverageWeigth]): Boolean
+    updateAverageWeightPerEggs(averagesWeigths: [AverageWeigthPerEgg]): Boolean
+    updateFood(foods: [Food]): Boolean
     updatePrice(price: Float): Boolean
   }
 `;

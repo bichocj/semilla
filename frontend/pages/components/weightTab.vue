@@ -3,16 +3,18 @@
     <p class="text-center">
       Aqui puedes ingresar el <b>peso promedio de un huevo cada galpon</b>, considere ingresar 4 decimales.
     </p>
-    última actualizacion: {{ $dateFns.format(lastUpdateOfAverageWeight,'DD/MM/YYYY HH:mm') }} 
+    última actualizacion: {{ $dateFns.format(lastUpdateOfAverageWeightPerEgg,'DD/MM/YYYY HH:mm') }} 
     <div v-for="campaing in data.campaings" :key="campaing.name" class="d-flex my-2">
       <div class="mx-3 my-auto">
         <h1>{{ campaing.barn.name }}</h1>
-      </div>          
-      <b-form-input
-        v-model="campaing.averageWeight"        
-        placeholder="ingrese peso"
-        type="number">
-      </b-form-input>      
+      </div>
+      <b-input-group append="kg">          
+        <b-form-input
+          v-model="campaing.averageWeightPerEgg"        
+          placeholder="ingrese peso"
+          type="number">
+        </b-form-input>      
+      </b-input-group>
     </div>
     <b-button variant="primary" :block="true" @click="updateValues()">Guardar</b-button>
   </div>
@@ -24,15 +26,15 @@ export default {
   name: "WeightTab",  
   props: [
     "data",
-    "lastUpdateOfAverageWeight"
+    "lastUpdateOfAverageWeightPerEgg"
   ],
   methods: {
     async updateValues() {      
       const values = []
       if(this.data.campaings){
-        this.data.campaings.forEach(({id, averageWeight})=> {        
-          const parsed = parseFloat(averageWeight)
-          values.push({id, averageWeight: parsed})
+        this.data.campaings.forEach(({id, averageWeightPerEgg})=> {        
+          const parsed = parseFloat(averageWeightPerEgg)
+          values.push({campaingId: id, averageWeightPerEgg: parsed})
         })
         const variables = {
           items: values

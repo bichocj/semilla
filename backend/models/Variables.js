@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const VariablesSchema = new mongoose.Schema( {
-  lastUpdateOfAverageWeight  : {
+  lastUpdateOfAverageWeightPerEgg  : {
+    type: Date,
+    default: Date.now,
+  },
+  lastUpdateOfFood  : {
     type: Date,
     default: Date.now,
   },

@@ -1,7 +1,8 @@
 query {
   variables {
-    lastUpdateOfAverageWeight
+    lastUpdateOfAverageWeightPerEgg
     price
     lastUpdateOfPrice
+    lastUpdateOfFood
   }
 }

@@ -24,11 +24,19 @@ const CampaingSchema = new mongoose.Schema({
   quantityBird: {
     type: Number
   },
-  status: {
+  isActive: {
     type: Boolean,
     default: true    
   },
-  averageWeight: {
+  averageWeightPerEgg: {
+    type: Number,
+    default: 0 
+  },
+  foodWeight: {
+    type: Number,
+    default: 0 
+  },
+  foodPrice: {
     type: Number,
     default: 0 
   }

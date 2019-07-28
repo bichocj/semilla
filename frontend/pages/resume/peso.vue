@@ -50,7 +50,7 @@ export default {
           const month = parseInt(date[1])
           const day = parseInt(date[2])          
           if(today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day) {
-            return collect.averageWeight
+            return collect.averageWeightPerEgg
           }
           return 0
         })

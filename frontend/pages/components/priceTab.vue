@@ -4,11 +4,13 @@
       Aqui puedes ingresar el <b>precio actual del kilo de huevo</b>
     </p>
     última actualizacion: {{ $dateFns.format(lastUpdateOfPrice,'DD/MM/YYYY HH:mm') }}     
-    <b-form-input
-      v-model="price"        
-      placeholder="ingrese peso"
-      type="number">
-    </b-form-input>    
+    <b-input-group prepend="s/.">     
+      <b-form-input
+        v-model="price"        
+        placeholder="ingrese peso"
+        type="number">
+      </b-form-input>
+    </b-input-group>     
     <br>      
     <b-button variant="primary" :block="true" @click="updateValues()">Guardar</b-button>
   </div>

@@ -15,7 +15,10 @@
                     <PickupTab :data="data" />             
                   </b-tab>
                   <b-tab title="Peso">
-                    <WeightTab :data="data" :lastUpdateOfAverageWeight="lastUpdateOfAverageWeight" />
+                    <WeightTab :data="data" :lastUpdateOfAverageWeightPerEgg="lastUpdateOfAverageWeightPerEgg" />
+                  </b-tab>
+                  <b-tab title="Consumo">
+                    <ConsumptionTab :data="data" :lastUpdateOfFood="lastUpdateOfFood" />
                   </b-tab>
                   <b-tab title="Precio">
                     <PriceTab :price="price" :lastUpdateOfPrice="lastUpdateOfPrice" />
@@ -46,23 +49,27 @@
 import PickupTab from "./components/pickupTab"
 import PriceTab from "./components/priceTab"
 import WeightTab from "./components/weightTab"
+import ConsumptionTab from "./components/consumptionTab"
 const variablesQuery = require('./graphql/variables.gql')
 export default {
   data: () => ({
-    lastUpdateOfAverageWeight: null,
+    lastUpdateOfAverageWeightPerEgg: null,
+    lastUpdateOfFood: null,
     lastUpdateOfPrice: null,
     price: null
   }),
   components: {
     PickupTab,
     WeightTab,
-    PriceTab
+    PriceTab,
+    ConsumptionTab
   },
   mounted() {
     this.$apollo.query({query: variablesQuery}).then(({data}) => { 
-      const { variables: {lastUpdateOfAverageWeight, lastUpdateOfPrice, price }} = data
-      this.lastUpdateOfAverageWeight = new Date(parseInt(lastUpdateOfAverageWeight))
+      const { variables: {lastUpdateOfAverageWeightPerEgg, lastUpdateOfPrice, lastUpdateOfFood, price }} = data
+      this.lastUpdateOfAverageWeightPerEgg = new Date(parseInt(lastUpdateOfAverageWeightPerEgg))
       this.lastUpdateOfPrice = new Date(parseInt(lastUpdateOfPrice))
+      this.lastUpdateOfFood = new Date(parseInt(lastUpdateOfFood))
       this.price = price
     })
   }

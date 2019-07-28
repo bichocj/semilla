@@ -15,9 +15,9 @@ const CollectSchema = new mongoose.Schema( {
     type: Number,    
     required: 'quantity cannot be blank'
   },
-  averageWeight: {
+  averageWeightPerEgg: {
     type: Number,    
-    required: 'averageWeight cannot be blank'
+    required: 'averageWeightPerEgg cannot be blank'
   },
   amount: {
     type: Number,    

@@ -18,7 +18,7 @@ async function createCollect(data, type) {
   } = data
   datetime = new Date(parseInt(datetime))
   let amount = 0
-  let averageWeightPerEgg=0
+  let averageWeightPerEgg = 0
   const variable = await Variables.findOne().exec();
   const campaing = await Campaing.findOne({sections: sectionId}).exec();  
 
@@ -87,9 +87,49 @@ async function deleteCollect(data) {
   const {
     id
   } = data
-  await Collect.remove({
-    _id: id
-  })
+
+  const collect = await Collect.findOne({_id: id}).exec()
+  if (collect!==null) {
+    const sectionId = collect.sectionId
+    const campaing = await Campaing.findOne({sections: sectionId}).exec();    
+    const datetime = collect.datetime
+    const {
+      maxDatetime,
+      minDatetime
+    } = getMaxMinDate(datetime)
+
+    const stats = await Stats.findOne({
+      campaingId: campaing.id,
+      datetime: {
+        $gte: minDatetime,
+        $lte: maxDatetime
+      }
+    }).exec();
+    
+    const averageWeightPerEgg = stats.weightEggsCollected / stats.quantityEggsCollected
+    const price = stats.amountIn / stats.weightEggsCollected
+
+    const collectWeightEggsCollected = averageWeightPerEgg * collect.quantity
+    const collectAmountIn = price * collectWeightEggsCollected
+
+    let quantityEggsCollected = stats.quantityEggsCollected - collect.quantity
+    let weightEggsCollected = stats.weightEggsCollected - collectWeightEggsCollected
+    let amountIn = stats.amountIn - collectAmountIn
+    let amountTotal = stats.amountTotal - collectAmountIn  
+    await Stats.findOneAndUpdate(
+      {_id:stats.id},
+      {
+        quantityEggsCollected,
+        weightEggsCollected,
+        amountIn,
+        amountTotal
+      }
+    ).exec()
+
+    await Collect.deleteOne({
+      _id: id
+    })
+  }
   return {
     id,
     isSuccess: true

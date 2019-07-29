@@ -40,6 +40,7 @@
 
   .nav-link {
     border: $nav-tabs-border-width solid transparent;
+    font-size: 0.7rem;
     @include border-top-radius($nav-tabs-border-radius);
 
     @include hover-focus {

@@ -17,8 +17,18 @@ async function createCollect(data, type) {
     datetime
   } = data
   datetime = new Date(parseInt(datetime))
-  let amount = 0
-  let averageWeightPerEgg = 0
+  if (type === 'COLLECTED') {
+    updateStats(sectionId, quantity, datetime)
+  }
+  return await Collect.create({
+    sectionId,
+    quantity,    
+    datetime,
+    type
+  })
+}
+
+async function updateStats(sectionId, quantity, datetime){  
   const variable = await Variables.findOne().exec();
   const campaing = await Campaing.findOne({sections: sectionId}).exec();  
 
@@ -72,15 +82,6 @@ async function createCollect(data, type) {
       datetime
     })
   }
-
-  return await Collect.create({
-    sectionId,
-    quantity,
-    amount,
-    averageWeightPerEgg,
-    datetime,
-    type
-  })
 }
 
 async function deleteCollect(data) {
